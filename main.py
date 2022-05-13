@@ -1,5 +1,4 @@
 import SendEmailAttach
-import pandas as pd
 
 dicionario = {
     'Software': ['log4J', 'log4J', 'log4J', 'log4J'],
@@ -15,7 +14,9 @@ dicionario = {
 lista_emails = [
     'gelsinhomusico@gmail.com',
     '2.gelsinhomusico@gmail.com',
-    'gelsonfilho.contato@gmail.com'
+    'gelsonfilho.contato@gmail.com',
+    'filipe.sousa246@gmail.com',
+    'otavio.marques@facens.br'
 ]
 
 nome_da_planilha = "PlanilhaListaVulnerabilidades"

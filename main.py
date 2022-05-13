@@ -18,4 +18,6 @@ lista_emails = [
     'gelsonfilho.contato@gmail.com'
 ]
 
-SendEmailAttach.send_email(lista_emails, dicionario)
+nome_da_planilha = "PlanilhaListaVulnerabilidades"
+
+SendEmailAttach.send_email(lista_emails, dicionario, nome_da_planilha)

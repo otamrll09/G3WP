@@ -51,5 +51,6 @@ for coluna in ws.columns:
         ws.column_dimensions[indec_coluna].width = 66
     else:
         ws.column_dimensions[indec_coluna].width = largura_ajustada
-
+        
+# Comando para salvar a planilha
 wb.save(filename='Teste_Data_Frame.xlsx')

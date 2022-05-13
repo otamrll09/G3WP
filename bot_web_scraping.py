@@ -116,7 +116,8 @@ try:
                 #* Utilizando o método "find_all" do BS para localizar os graus de severidade anotados da vunerabilidade.
                 for busca in site_n_t.find_all(attrs={'id': re.compile('Cvss3')}):
                     severity.append(str(busca.contents)[2:-2]) #? Verificar se é possivel identificar cada uma das notas
-                
+                if len(severity) == 1:
+                    severity.append("0000")
                 #####
                 #* Mesmo principio porem agora para localizar links de esclarecimento do fornecedor do software
                 #* OBS.: Foi utilizado a biblioteca re junto com métodos compile para localizar de maneria geral palavras

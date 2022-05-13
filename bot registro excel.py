@@ -1,3 +1,4 @@
+from cgitb import text
 import pandas as pd
 import numpy as np
 from openpyxl import load_workbook
@@ -11,10 +12,15 @@ cabecalho_excel = ['Software/Sistema', 'CVE', 'Descrição', 'Severidade CNA', '
                     'Configurações de softwares afetadas', 'Data de publicação NVD', 'Link CVE']
 
 # Recebe os dados obtidos via bot webscrapping
-textos_site = ['texto1', 'texto2', 'texto3', 9, 2, 'texto4', 'texto7', 'texto8', 'texto9']
+textos_site = [['Texto1', 'Texto1', 'Texto1', 'Texto1', 'Texto1', 'Texto1', 'Texto1', 'Texto1', 'Texto1'],
+               ['Texto2', 'Texto2', 'Texto2', 'Texto2', 'Texto2', 'Texto2', 'Texto2', 'Texto2', 'Texto2'],
+               ['Texto3', 'Texto3', 'Texto3', 'Texto3', 'Texto3', 'Texto3', 'Texto3', 'Texto3', 'Texto3'],
+               ['Texto4', 'Texto4', 'Texto4', 'Texto4', 'Texto4', 'Texto4', 'Texto4', 'Texto4', 'Texto4'],
+               ['Texto5', 'Texto5', 'Texto5', 'Texto5', 'Texto5', 'Texto5', 'Texto5', 'Texto5', 'Texto5'],
+               ['Texto6', 'Texto6', 'Texto6', 'Texto6', 'Texto6', 'Texto6', 'Texto6', 'Texto6', 'Texto6'],]
 
 # Salva os dados em uma planilha do excel
-dados_obtidos = pd.DataFrame(data=[textos_site],columns=cabecalho_excel, index=None)
+dados_obtidos = pd.DataFrame(textos_site,columns=cabecalho_excel, index=None)
 dados_obtidos.to_excel('Teste_Data_Frame.xlsx', index=False)
 
 # Abre o arquivo do excel para realizar a edição

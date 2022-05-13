@@ -14,6 +14,7 @@ def bot_registro_excel(dados_bot_webscrapping):
     # Salva os dados em uma planilha do excel
     dados_obtidos = pd.DataFrame(dados_bot_webscrapping,columns=cabecalho_excel, index=None)
     dados_obtidos.to_excel('Teste_Data_Frame.xlsx', index=False)
+    dados_gelso = dados_obtidos
 
     # Abre o arquivo do excel para realizar a edição
     wb = load_workbook(filename='Teste_Data_Frame.xlsx')

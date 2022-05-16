@@ -87,7 +87,7 @@ def web_sc(sw_sch, data_busca, aday):
                     num_pg.append("https://nvd.nist.gov"+str(busca["href"]))
         else:
             num_pg.append(url_n)
-        print("Paginas: ",num_pg)
+        #print("Paginas: ",num_pg)
         for pg_b in num_pg:
             response = requests.get(pg_b)
             content_t = response.content

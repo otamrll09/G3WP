@@ -1,18 +1,4 @@
 import time
-
-
-
-sw_sch = input("Insira o software que deseja pesquisar: ")#"log4J" 
-data_busca = input("Insira a data de início do intervalo: ")#"01152022" #! A entrada de data deve estar no padrão americano mm dd YY
-aday = input("Insira a data de fim do intervalo: ")
-print("-------------------------------------------------------------------------------------")
-time.sleep(2)
-print("OK! Não se assuste vamos lá! Jájá chega o email em...")
-print("-------------------------------------------------------------------------------------")
-time.sleep(5)
-
-
-
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -34,6 +20,70 @@ from openpyxl.styles import Font
 
 import bot_registro_excel
 
+
+
+while True:
+    sw_sch = input("Insira o software que deseja pesquisar: ")#"log4J"
+    if sw_sch == '':
+        print('Dado invalido, digite novamente')
+        continue
+    else:
+        break
+
+#* Testador de datas SIMPLIFICADO, é necessario que as datas 
+while True:
+    while True:
+        data_busca = input("Insira a data de início do intervalo (formato mmddYY): ")#"01152022" #! A entrada de data deve estar no padrão americano mm dd YY
+        data_busca = data_busca.replace("/", "")
+        data_busca = data_busca.replace(" ", "")
+        if int(data_busca[0:2]) > 12:
+            print("Mes invalido")
+            continue
+        elif int(data_busca[2:4]) >= 32:
+            print("Dia invalido")
+            continue
+        elif (int(data_busca[0:2]) == 2) and (int(data_busca[2:4]) > 30):
+            print("Dia invalido")
+            continue
+        elif len(data_busca) != 6:
+            print("Formato de data invalido")
+            continue
+        break
+    while True:
+        aday = input("Insira a data de fim do intervalo (formato mmddYY): ")
+        aday = aday.replace("/", "")
+        aday = aday.replace(" ", "")
+        if int(aday[0:2]) > 12:
+            print("Mes invalido")
+            continue
+        elif int(aday[2:4]) >= 32:
+            print("Dia invalido")
+            continue
+        elif (int(aday[0:2]) == 2) and (int(aday[2:4]) > 30):
+            print("Dia invalido")
+            continue
+        elif len(aday) != 6:
+            print("Formato de data invalido")
+            continue
+        break
+
+    if int(data_busca[4:]) > int(aday[4:]):
+        print('Datas invalidas.')
+        continue
+    elif int(data_busca[2:4]) > int(aday[2:4]):
+        print('Datas invalidas.')
+        continue
+    elif (int(data_busca[2:4]) == int(aday[2:4])) and (int(data_busca[0:2]) > int(aday[0:2])):
+        print('Datas invalidas.')
+        continue
+    else:
+        break
+
+print("-------------------------------------------------------------------------------------")
+time.sleep(2)
+print("OK! Não se assuste vamos lá! Jájá chega o email em...")
+print("-------------------------------------------------------------------------------------")
+time.sleep(5)
 
 # * Apontamento do diretorio onde está o driver do Chrome (versão 101 dos navegadores).
 # * Logo mais é iniciado o Webdriver utilizando o driver especificado.
@@ -85,7 +135,7 @@ try:
     site_t = BeautifulSoup(content_t, 'html.parser')
     num_vuln = site_t.find(attrs={"data-testid": "vuln-matching-records-count"})
     num_vuln = int(str(num_vuln.contents)[2:-2])
-    print(type(num_vuln))
+    #print(type(num_vuln))
     num_pg = []
     lst_felps = []
     if num_vuln > 20:
@@ -182,7 +232,7 @@ try:
                 #print("Data de publicação: ", publi_d)
                 sub_lst.append(new_link)
                 #print("Site da CVE", new_link)
-                print(sub_lst)
+                #print(sub_lst)
                 lst_felps.append(sub_lst)
                 #time.sleep(1)
                 driver.back()

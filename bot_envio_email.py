@@ -40,10 +40,21 @@ def send_email(lista_emails, dicionario):
         indice = 0
         for i in list(dicionario_severidades.values()):
             if len(i) == 1:
-                if float(i[0][:3]) < 7:
+                if(i[0].__contains__("N/A")):
+                    indices_para_excluir.append(indice)
+                elif float(i[0][:3]) < 7:
                     indices_para_excluir.append(indice)
             else:
-                if (float(i[0][:3]) < 7) and (float(i[1][:3]) < 7):
+                if( (not(i[0].__contains__("N/A"))) and (not(i[1].__contains__("N/A"))) ):
+                    if (float(i[0][:3]) < 7) and (float(i[1][:3]) < 7):
+                        indices_para_excluir.append(indice)
+                elif( (not(i[0].__contains__("N/A"))) and (i[1].__contains__("N/A")) ):
+                    if float(i[0][:3]) < 7:
+                        indices_para_excluir.append(indice)
+                elif( (i[0].__contains__("N/A")) and (not(i[1].__contains__("N/A"))) ):
+                    if float(i[1][:3]) < 7:
+                        indices_para_excluir.append(indice)
+                else: #caso os dois baseScore-cvss forem N/A
                     indices_para_excluir.append(indice)
             indice += 1
         for i in indices_para_excluir:

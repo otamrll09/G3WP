@@ -79,10 +79,15 @@ def web_sc(sw_sch, data_busca, aday):
         lst_felps = []
         if num_vuln > 20:
             for busca in site_t.find_all(attrs={"aria-label": re.compile('Page')}):
-                num_pg.append("https://nvd.nist.gov"+str(busca["href"]))
+                if ("https://nvd.nist.gov"+str(busca["href"])) in num_pg:
+                    continue
+                elif '&gt' in str(busca["href"]):
+                    continue
+                else:
+                    num_pg.append("https://nvd.nist.gov"+str(busca["href"]))
         else:
             num_pg.append(url_n)
-        #print(num_pg)
+        print("Paginas: ",num_pg)
         for pg_b in num_pg:
             response = requests.get(pg_b)
             content_t = response.content
@@ -92,7 +97,6 @@ def web_sc(sw_sch, data_busca, aday):
             for link in site_t.find_all('a'):
                 refadv = []
                 severity = []
-                affec =[]
                 src_lst = []
                 cpe_cd = []
                 publi_d = ''
@@ -184,5 +188,6 @@ def web_sc(sw_sch, data_busca, aday):
     driver.close()
 
     #dados_monta_email = bot_registro_excel.montaPlanilha(lst_felps)
+    #print(lst_felps)
     return(lst_felps)
 

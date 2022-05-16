@@ -101,7 +101,7 @@ print("-------------------------------------------------------------------------
 time.sleep(5)
 
 #ListaEmails.append(email_desejado)
-#ListaEmails = [num for num in reversed(ListaEmails)]
+#ListaEmails = [num for num in reversed(ListaEmails)
 result_busca = bot_web_scraping.web_sc(sw_sch, data_busca, aday)
 
 felps_gel = bot_registro_excel.montaPlanilha(result_busca)

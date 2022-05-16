@@ -11,7 +11,9 @@ import pandas as pd
 #* Para criar o servidor e enviar o email
 
 
-def send_email(lista_emails, dicionario, nome_da_planilha):
+nome_da_planilha = "VulnerabilidadesSolicitadas"
+
+def send_email(lista_emails, dicionario):
     #!-------------------------------------------------------------------------------------------------------------
     #!1 - Inicia servidor
     #!-------------------------------------------------------------------------------------------------------------
@@ -28,11 +30,27 @@ def send_email(lista_emails, dicionario, nome_da_planilha):
         #!2 - Constroi o email tipo MIME -- texto
         #!-------------------------------------------------------------------------------------------------------------
         df = pd.DataFrame(dicionario)
-        df = df.drop(columns=['Current Description']) #tirando a coluna
-        df = df.drop(columns=['References to Advisories, Solutions, and Tools']) #tirando a coluna
-        df = df.drop(columns=['Known Affected Software Configurations']) #tirando a coluna
-        df = df[df['Severity']>=7] #selecionando apenas os com severidade grave (que é os maiores q 7)
-        corpo_email = df.to_html(bold_rows=True,index=False,justify="center",render_links=True) #converte para html
+        df = df.drop(columns=['Descrição']) #tirando a coluna
+        df = df.drop(columns=['Referências para recomendações, soluções e ferramentas']) #tirando a coluna
+        df = df.drop(columns=['Configurações de softwares afetadas']) #tirando a coluna
+
+        #todo aqui embaixo, neste grupo, eu verifico quais itens da severidade possuem valor menor q 7 e excluo suas linhas do q ira no corpo do email
+        dicionario_severidades = df.to_dict()['Severidade']
+        indices_para_excluir = []
+        indice = 0
+        for i in list(dicionario_severidades.values()):
+            if len(i) == 1:
+                if float(i[0][:3]) < 7:
+                    indices_para_excluir.append(indice)
+            else:
+                if (float(i[0][:3]) < 7) and (float(i[1][:3]) < 7):
+                    indices_para_excluir.append(indice)
+            indice += 1
+        for i in indices_para_excluir:
+            df = df.drop(i)
+        #todo termina aqui essa lógica para exclusao  -----------------------------------------------------------------------------------------------
+
+        corpo_email = df.to_html(index=False,justify="center",render_links=True) #converte para html
 
         email_msg = MIMEMultipart()
         email_msg['Subject'] = 'Vulnerabilidades Críticas Data '+ datetime.today().strftime('%d/%m/%Y') #pega a data atual
@@ -73,6 +91,5 @@ def send_email(lista_emails, dicionario, nome_da_planilha):
 
     #!Encerra o servidor
     server.quit()
-
 
 

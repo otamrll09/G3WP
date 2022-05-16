@@ -1,23 +1,26 @@
-from cgitb import text
-import pandas as pd
-import numpy as np
-from openpyxl import load_workbook
-from openpyxl.styles import Alignment
-from openpyxl.styles import Font
+def montaPlanilha(lst_felps):
+    from cgitb import text
+    import pandas as pd
+    import numpy as np
+    from openpyxl import load_workbook
+    from openpyxl.styles import Alignment
+    from openpyxl.styles import Font
+    from openpyxl.styles import PatternFill
+    import re
 
-def bot_registro_excel(dados_bot_webscrapping):
     # Monta o cabeçalho da planilha
     cabecalho_excel = ['Software/Sistema', 'CVE', 'Descrição', 'Severidade', 
                         'Referências para recomendações, soluções e ferramentas',
                         'Configurações de softwares afetadas', 'Data de publicação NVD', 'Link CVE']
 
     # Salva os dados em uma planilha do excel
-    dados_obtidos = pd.DataFrame(dados_bot_webscrapping,columns=cabecalho_excel, index=None)
-    dados_obtidos.to_excel('Teste_Data_Frame.xlsx', index=False)
-    dados_gelso = dados_obtidos
+    dados_obtidos = pd.DataFrame(lst_felps,columns=cabecalho_excel, index=None)
+    dados_obtidos.to_excel('VulnerabilidadesSolicitadas.xlsx', index=False)
+    dados_gelso = pd.DataFrame(lst_felps,columns=cabecalho_excel, index=None)
+    dados_gelso.to_dict()
 
     # Abre o arquivo do excel para realizar a edição
-    wb = load_workbook(filename='Teste_Data_Frame.xlsx')
+    wb = load_workbook(filename='VulnerabilidadesSolicitadas.xlsx')
     ws = wb['Sheet1']
 
     # Varre as células nas colunas para configurar largura e alinhamento
@@ -46,4 +49,6 @@ def bot_registro_excel(dados_bot_webscrapping):
             ws.column_dimensions[indec_coluna].width = largura_ajustada
             
     # Comando para salvar a planilha
-    wb.save(filename='Teste_Data_Frame.xlsx')
+    wb.save(filename='VulnerabilidadesSolicitadas.xlsx')
+
+    return dados_gelso

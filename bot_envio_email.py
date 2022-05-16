@@ -60,14 +60,17 @@ def send_email(lista_emails, dicionario):
         for i in indices_para_excluir:
             df = df.drop(i)
         #todo termina aqui essa lógica para exclusao  -----------------------------------------------------------------------------------------------
+        corpo_email_2 = ""
+        if(int(df.shape[0]) > 20):
+            corpo_email_2 = "A quantidade de vulnerabilidade críticas ou altas é superior a 20. Verificar demais resultados no anexo."
 
-        corpo_email = df.to_html(index=False,justify="center",render_links=True) #converte para html
-
+        corpo_email = df.to_html(index=False,justify="center",render_links=True,max_rows=20) #converte para html
         email_msg = MIMEMultipart()
         email_msg['Subject'] = 'Vulnerabilidades Críticas Data '+ datetime.today().strftime("%Y-%m-%d %H:%M:%S") #pega a data atual
         email_msg['From'] = LoginData.login
         email_msg['To'] = email_destinatario
         email_msg.attach(MIMEText(corpo_email,'html'))
+        email_msg.attach(MIMEText(corpo_email_2,'Plain'))
 
         #!-------------------------------------------------------------------------------------------------------------
         #!3 - Inserção de anexo

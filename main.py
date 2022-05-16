@@ -15,7 +15,7 @@ ListaEmails = [
     'gelsinhomusico@gmail.com'
 ]
 #'gelsinhomusico@gmail.com',
-#    '2.gelsinhomusico@gmail.com',
+#    '2.gelsinhomusico@gmail.com',  
 
 while True: # While do EMAIL
     email_desejado = input("Digite o email para onde enviaremos os resultados: ")

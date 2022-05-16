@@ -29,6 +29,7 @@ def web_sc(sw_sch, data_busca, aday):
     PATH = 'C:\Program Files (x86)\chromedriver.exe'
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
+    options.add_argument("--log-level=3")
     driver = webdriver.Chrome(PATH,chrome_options=options)
     today = date.today() # * Data de hoje.
     # * Site para coleta de dados
@@ -120,7 +121,11 @@ def web_sc(sw_sch, data_busca, aday):
                     #####
                     #* Utilizando o método "find_all" do BS para localizar os graus de severidade anotados da vunerabilidade.
                     for busca in site_n_t.find_all(attrs={'id': re.compile('Cvss3')}):
-                        severity.append(str(busca.contents)[2:-2]) #? Verificar se é possivel identificar cada uma das notas
+                        if 'Cna' in busca['id']:
+                            severity.append((str(busca.contents)[2:-2]) + ' (CNA)') 
+                            #? Verificar se é possivel identificar cada uma das notas]
+                        else:
+                            severity.append((str(busca.contents)[2:-2]) + ' (NIST)') 
                     
                     #####
                     #* Mesmo principio porem agora para localizar links de esclarecimento do fornecedor do software

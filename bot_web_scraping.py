@@ -74,7 +74,9 @@ def web_sc(sw_sch, data_busca, aday):
         content_t = response.content
         site_t = BeautifulSoup(content_t, 'html.parser')
         num_vuln = site_t.find(attrs={"data-testid": "vuln-matching-records-count"})
+        lev_vuln = 0        
         num_vuln = int(str(num_vuln.contents)[2:-2])
+        print("Vulnerabildiades encontradas: ", num_vuln)
         #print(type(num_vuln))
         num_pg = []
         lst_felps = []
@@ -105,7 +107,7 @@ def web_sc(sw_sch, data_busca, aday):
                 if 'CVE' in str(link.contents):
                     #* Os links contidos na variavel localizada estavam incompletos, sendo necessario concatenar as str e gerar novo link.
                     new_link = "https://nvd.nist.gov" + str(link.get('href'))
-                    driver.get(new_link)
+                    #driver.get(new_link)
                     cont_new = requests.get(new_link)
                     cont_new_t = cont_new.content
                     site_n_t = BeautifulSoup(cont_new_t, 'html.parser')
@@ -183,7 +185,9 @@ def web_sc(sw_sch, data_busca, aday):
                     #print(sub_lst)
                     lst_felps.append(sub_lst)
                     #time.sleep(1)
-                    driver.back()
+                    #driver.back()
+                    lev_vuln += 1
+                    print("Contagem:", lev_vuln, "de ", num_vuln)
             #####
             ######
         #time.sleep(2)

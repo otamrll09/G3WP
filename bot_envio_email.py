@@ -65,12 +65,31 @@ def send_email(lista_emails, dicionario):
             corpo_email_2 = "A quantidade de vulnerabilidade críticas ou altas é superior a 20. Verificar demais resultados no anexo."
 
         corpo_email = df.to_html(index=False,justify="center",render_links=True,max_rows=20) #converte para html
+        corpo_email = corpo_email.replace("[","").replace("]","").replace(", "," - ").replace("'","")
+        corpo_email = corpo_email.replace("HIGH","'High'").replace("MEDIUM","'Medium'").replace("CRITICAL","'Critical'").replace("LOW","'Low'")
+        corpo_email = corpo_email.replace("<tr style=\"text-align: center;\">","<tr style=\"text-align: center;\" bgcolor=\"DimGray\">")
+        corpo_email = corpo_email.replace("<tr>","<tr style=\"text-align: center;\">")
+        corpo_email = corpo_email.replace("<th>Software/Sistema</th>","<th><font color=\"White\"> Software/Sistema </font></th>")
+        corpo_email = corpo_email.replace("<th>CVE</th>","<th><font color=\"White\"> CVE </font></th>")
+        corpo_email = corpo_email.replace("<th>Severidade</th>","<th><font color=\"White\"> Severidade </font></th>")
+        corpo_email = corpo_email.replace("<th>Data de publicação NVD</th>","<th><font color=\"White\"> Data de publicação NVD </font></th>")
+        corpo_email = corpo_email.replace("<th>Link CVE</th>","<th><font color=\"White\"> Link CVE </font></th>")
+        corpo_email = corpo_email.replace("'High'","<font color=\"Orange\">'High'</font>")
+        corpo_email = corpo_email.replace("'Critical'","<font color=\"Red\">'Critical'</font>")
+
         email_msg = MIMEMultipart()
         email_msg['Subject'] = 'Vulnerabilidades Críticas Data '+ datetime.today().strftime("%Y-%m-%d %H:%M:%S") #pega a data atual
         email_msg['From'] = LoginData.login
         email_msg['To'] = email_destinatario
+        email_msg.attach(MIMEText("Abaixo está uma tabela apenas com as CVE's cuja as severidades foram dadas como altas/críticas por pelo um dos padrões CVSS Versão 3.x (NIST ou CNA). Em anexo, segue planilha do excel com dados completos solicitados independente da severidade.",'Plain'))
         email_msg.attach(MIMEText(corpo_email,'html'))
         email_msg.attach(MIMEText(corpo_email_2,'Plain'))
+
+        print("----------------------------------------")
+        print("----------------------------------------")
+        print(corpo_email)
+        print("----------------------------------------")
+        print("----------------------------------------")
 
         #!-------------------------------------------------------------------------------------------------------------
         #!3 - Inserção de anexo

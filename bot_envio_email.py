@@ -7,6 +7,9 @@ from email.mime.base import MIMEBase
 from email import encoders
 from datetime import datetime
 import pandas as pd
+
+
+
 #* SMTP - Simple Mail transfer protocol
 #* Para criar o servidor e enviar o email
 

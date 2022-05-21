@@ -1,4 +1,5 @@
 import time
+import os
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
@@ -15,7 +16,8 @@ def web_sc(sw_sch, data_busca, aday):
     
     # * Apontamento do diretorio onde está o driver do Chrome (versão 101 dos navegadores).
     # * Logo mais é iniciado o Webdriver utilizando o driver especificado.
-    PATH = 'C:\Program Files (x86)\chromedriver.exe'
+    PATH = os.path.dirname(os.path.realpath(__file__)) + "\\" + "chromedriver.exe"
+    #PATH = 'C:\Program Files (x86)\chromedriver.exe'
     options = webdriver.ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--log-level=3")
@@ -100,7 +102,18 @@ def web_sc(sw_sch, data_busca, aday):
         return results_fc
         #Todo -------------------- Fim da primeira função --------------------
                 
-def web_cole(sw_sch, new_link = []):     
+def web_cole(sw_sch, new_link = []):  
+       
+    path1 = os.path.dirname(os.path.realpath(__file__)) + "\\" + "VulnerabilidadesSolicitadas.xlsx"
+    path2 = os.path.dirname(os.path.realpath(__file__)) + "\\" + "planilha.html"
+    path3 = os.path.dirname(os.path.realpath(__file__)) + "\\" + "Planilha.txt"
+    if os.path.isfile(path1):
+        os.remove(path1)
+    if os.path.isfile(path2):
+        os.remove(path2)
+    if os.path.isfile(path3):
+        os.remove(path3)
+
     refadv = []
     severity = []
     src_lst = []

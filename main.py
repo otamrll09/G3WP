@@ -165,7 +165,7 @@ class ThreadClass(QtCore.QThread):
         if result_auto[0] == 0:
             felps_gel = bot_registro_excel.montaPlanilha(result_auto[1])            
         bot_envio_email.send_email(self.envio_dt[3], felps_gel)
-        bot_envio_whatsapp.send_wpp(self.envio_dt[4])
+        bot_envio_whatsapp.send_wpp(self.envio_dt[4],self.envio_dt[0])
         que_dt[2] = 3
         self.any_signal.emit(que_dt)
     

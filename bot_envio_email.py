@@ -116,7 +116,10 @@ def send_email(lista_emails, dicionario):
         #insere no corpo do email
         email_msg.attach(att)
 
-
+        #todo -------------------- cria a planilha html para uso posterior do bot_whatsapp se preciso
+        f = open('planilha.html','w')
+        f.write(corpo_email)
+        f.close()
 
         #!-------------------------------------------------------------------------------------------------------------
         #!4 - Envia o email tipo MIME no SERVIDOR SMTP

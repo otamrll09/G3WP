@@ -1,12 +1,16 @@
 import os
 import smtplib
-import LoginData
+# import LoginData
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email import encoders
 from datetime import datetime
 import pandas as pd
+import pyAesCrypt
+
+
+
 #* SMTP - Simple Mail transfer protocol
 #* Para criar o servidor e enviar o email
 
@@ -14,13 +18,29 @@ import pandas as pd
 nome_da_planilha = "VulnerabilidadesSolicitadas"
 
 def send_email(lista_emails, dicionario):
+
     #!-------------------------------------------------------------------------------------------------------------
     #!1 - Inicia servidor
     #!-------------------------------------------------------------------------------------------------------------
-    server = smtplib.SMTP(LoginData.host, LoginData.port)
+    bufferSize = 64 * 1024
+    password = " r@nd0m5enh@12345"
+    encFileSize = os.stat("LoginData.AES_G3WSware").st_size
+    with open("LoginData.AES_G3WSware", "rb") as fIn:
+        try:
+            with open("LoginData.py", "wb") as fOut:
+                pyAesCrypt.decryptStream(fIn, fOut, password, bufferSize, encFileSize)
+        except ValueError:
+            print ('senha incorreta')
+    import LoginData
+    host = LoginData.host
+    port = LoginData.port
+    login = LoginData.login
+    password = LoginData.password
+    os.remove("LoginData.py")
+    server = smtplib.SMTP(host, port)
     server.ehlo()
     server.starttls()
-    server.login(LoginData.login, LoginData.password)
+    server.login(login, password)
 
 
     #!1 - Laço FOR para enviar para mais de um email
@@ -79,7 +99,7 @@ def send_email(lista_emails, dicionario):
 
         email_msg = MIMEMultipart()
         email_msg['Subject'] = 'Vulnerabilidades Críticas Data '+ datetime.today().strftime("%Y-%m-%d %H:%M:%S") #pega a data atual
-        email_msg['From'] = LoginData.login
+        email_msg['From'] = login
         email_msg['To'] = email_destinatario
         email_msg.attach(MIMEText("Abaixo está uma tabela apenas com as CVE's cuja as severidades foram dadas como altas/críticas por pelo um dos padrões CVSS Versão 3.x (NIST ou CNA). Em anexo, segue planilha do excel com dados completos solicitados independente da severidade.",'Plain'))
         email_msg.attach(MIMEText(corpo_email,'html'))
@@ -113,7 +133,10 @@ def send_email(lista_emails, dicionario):
         #insere no corpo do email
         email_msg.attach(att)
 
-
+        #todo -------------------- cria a planilha html para uso posterior do bot_whatsapp se preciso
+        f = open('planilha.html','w')
+        f.write(corpo_email)
+        f.close()
 
         #!-------------------------------------------------------------------------------------------------------------
         #!4 - Envia o email tipo MIME no SERVIDOR SMTP

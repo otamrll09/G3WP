@@ -68,11 +68,3 @@ def send_wpp(numero,software_pesquisado):
         os.remove(path2)
     if os.path.isfile(path3):
         os.remove(path3)
-#!criar um arquivo html e mandar tbm com os resultados só com os criticos/high e tal
-
-# send_wpp("15996512099","opera")
-
-
-
-
-

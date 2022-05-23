@@ -18,11 +18,12 @@ def send_wpp(numero,software_pesquisado):
         path_file_attach_xlsx = os.path.dirname(os.path.realpath(__file__)) + "\\" + nome_da_planilha + ".xlsx"
 
         #!Manda para o whatsapp a mesma planilha
-        CHROME_PROFILE_PATH = "user-data-dir=C:\\Users\\lenovo\\AppData\\Local\\Google\\Chrome\\User Data\\Default"
+        hname = str(os.getlogin())
+        CHROME_PROFILE_PATH = "user-data-dir=C:\\Users" + "\\"+ hname + "\\" + "AppData\\Local\\Google\\Chrome\\User Data\\Default"
         PATH = os.path.dirname(os.path.realpath(__file__)) + "\\" + "chromedriver.exe"
         # PATH = 'C:\Program Files (x86)\chromedriver.exe'
         options = webdriver.ChromeOptions()
-        options.add_argument("--headless")
+        #options.add_argument("--headless")
         options.add_argument(CHROME_PROFILE_PATH)
         options.add_argument("--log-level=3")
         options.add_argument("user-agent=User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/98.0.4758.102 Safari/537.36")

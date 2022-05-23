@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Relatório NVD</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css')}}">
+        <link rel="manifest" href="manifest.json">
+    </head>
+    <body>
+        <img src="https://media.discordapp.net/attachments/972019062811033611/977777914747686942/Imagem.png">
+        <br>
+        <form action="pesquisar" method="post">
+            {% for message in get_flashed_messages(category_filter=["email"])%}
+                <p> {{message}} </p>
+            {% endfor %}
+            <input type="text" name="email_input">
+            <br>
+            {% for message in get_flashed_messages(category_filter=["software"])%}
+                <p> {{message}} </p>
+            {% endfor %}
+            <input type="text" name="software_input">
+            {% for message in get_flashed_messages(category_filter=["datainic"])%}
+                <p> {{message}} </p>
+            {% endfor %}
+            <div class="datas">
+                <input type="date" name="datainic_input" style="width:180px">
+                <input type="date" name="datafin_input" style="width:180px">
+            </div>
+            <br>
+            <input type="submit" value="Pesquisar" id="pesquisar">
+        </form>
+        <a href="https://drive.google.com/file/d/15QKM4CK9IAW_mJyJ9bLBUQKNdiDV3tYk/view?usp=sharing">
+            <button>
+                Download Windows
+            </button>
+        </a>
+    </body>
+</html>

@@ -1,0 +1,44 @@
+body {
+    background-color: rgb(0, 10, 74);
+    text-align: center;
+}
+
+p{
+    color: white;
+    font: 200;
+    font-size: medium;
+    margin: auto;
+}
+
+img {
+    margin: 10px 0 30px 0;
+    width: 400px;
+}
+
+input {
+    width: 400px;
+    height: 30px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    font: Shanti;
+    text-align: center;
+    font-size: medium;
+}
+
+button {
+    width: 200px;
+    height: 30px;
+    margin: 20px;
+    border: none;
+    border-radius: 10px;
+    font: Shanti;
+    text-align: center;
+    font-size: medium;
+}
+
+
+
+.datas{
+    display:inline-block;
+}

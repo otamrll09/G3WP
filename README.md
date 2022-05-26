@@ -23,6 +23,7 @@
 ### Assim +/- ficam as mensagens de whatsapp:
 <img src="https://user-images.githubusercontent.com/8295184/169682569-13e73088-cfef-44ce-975e-f53d63223473.png" width="500" height="400">
 
-## Links para o site e donwload da aplicação para desktop
+## Links para o site, donwload da aplicação para desktop e vídeo explicativo:
   * https://appg3wspwa.herokuapp.com/ >>> Site
   * https://drive.google.com/file/d/1KomBfXUpLMfA8CBzm1No3W_hpAbYT1if/view >>> Download
+  * https://www.youtube.com/watch?v=aZzSfYX1B_E >>> Vídeo

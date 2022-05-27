@@ -12,7 +12,7 @@
   * Bot de envio de whatsapp
 
 ### Assim ficou a interface gráfica:
-<img src="https://user-images.githubusercontent.com/8295184/169682457-8c108ae7-4a4a-4612-8956-49546e752e34.png" width="300" height="400">
+<img src="https://user-images.githubusercontent.com/8295184/170782742-adcbaa72-7005-49bf-8e0a-7939bb24934e.png" width="300" height="400">
 
 ### Assim ficou a interface web:
 <img src="https://user-images.githubusercontent.com/8295184/169683476-b7e3657b-a2df-4493-91d5-8d361f3cb1e6.png" width="300" height="400">

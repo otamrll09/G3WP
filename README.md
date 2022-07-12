@@ -25,5 +25,5 @@
 
 ## Links para o site, donwload da aplicação para desktop e vídeo explicativo:
   * https://appg3wspwa.herokuapp.com/ >>> Site
-  * https://drive.google.com/file/d/1KomBfXUpLMfA8CBzm1No3W_hpAbYT1if/view >>> Download
+  * https://www.4shared.com/s/fJjZATZ0-ea >>> Download
   * https://www.youtube.com/watch?v=aZzSfYX1B_E >>> Vídeo

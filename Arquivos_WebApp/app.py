@@ -3,9 +3,10 @@ from flask import Flask, redirect, render_template, request, flash
 import bot_web_scraping_web
 import bot_envio_email_web
 import bot_registro_excel_web
+import os
 
 app = Flask(__name__)
-app.secret_key="asd"
+app.secret_key=os.getenv('app_secret_key')
 app.index_string = '''<!DOCTYPE html>
 <html>
 <head>
